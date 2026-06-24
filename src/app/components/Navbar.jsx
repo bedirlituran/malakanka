@@ -1,9 +1,10 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { label: "Ana səhifə", href: "/", active: true },
+  { label: "Ana səhifə", href: "/" },
   { label: "Məhsullar", href: "/products" },
   { label: "Haqqımızda", href: "/about" },
   { label: "Çatdırılma", href: "/delivery" },
@@ -13,12 +14,23 @@ const navLinks = [
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  const isActive = (href) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   return (
     <>
@@ -53,7 +65,7 @@ const Navbar = () => {
           className="navbar-inner"
         >
           {/* Logo */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0 }}>
+          <a href="/" style={{ display: "flex", alignItems: "center", gap: "12px", flexShrink: 0, textDecoration: "none" }}>
             <div
               style={{
                 width: "52px",
@@ -98,49 +110,48 @@ const Navbar = () => {
                 Təbii Kənd Məhsulları
               </div>
             </div>
-          </div>
+          </a>
 
           {/* Nav links */}
           <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "4px",
-            }}
+            style={{ display: "flex", alignItems: "center", gap: "4px" }}
             className="nav-links"
           >
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                style={{
-                  fontSize: "13px",
-                  fontWeight: link.active ? 500 : 400,
-                  color: link.active ? "#0F2419" : "#6B7280",
-                  textDecoration: "none",
-                  padding: "7px 14px",
-                  borderRadius: "8px",
-                  background: link.active ? "rgba(15,36,25,0.06)" : "transparent",
-                  transition: "all .2s",
-                  letterSpacing: "0.2px",
-                  whiteSpace: "nowrap",
-                }}
-                onMouseEnter={(e) => {
-                  if (!link.active) {
-                    e.currentTarget.style.color = "#0F2419";
-                    e.currentTarget.style.background = "rgba(15,36,25,0.04)";
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!link.active) {
-                    e.currentTarget.style.color = "#6B7280";
-                    e.currentTarget.style.background = "transparent";
-                  }
-                }}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  style={{
+                    fontSize: "13px",
+                    fontWeight: active ? 500 : 400,
+                    color: active ? "#0F2419" : "#6B7280",
+                    textDecoration: "none",
+                    padding: "7px 14px",
+                    borderRadius: "8px",
+                    background: active ? "rgba(15,36,25,0.06)" : "transparent",
+                    transition: "all .2s",
+                    letterSpacing: "0.2px",
+                    whiteSpace: "nowrap",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!active) {
+                      e.currentTarget.style.color = "#0F2419";
+                      e.currentTarget.style.background = "rgba(15,36,25,0.04)";
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!active) {
+                      e.currentTarget.style.color = "#6B7280";
+                      e.currentTarget.style.background = "transparent";
+                    }
+                  }}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
           </div>
 
           {/* CTA */}
@@ -173,16 +184,7 @@ const Navbar = () => {
             }}
             className="cta-btn"
           >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#C9975A"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#C9975A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498A1 1 0 0121 15.72V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
             +994 10 314 08 08
@@ -230,24 +232,27 @@ const Navbar = () => {
             }}
             className="mobile-menu"
           >
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                style={{
-                  display: "block",
-                  padding: "11px 12px",
-                  fontSize: "14px",
-                  fontWeight: link.active ? 500 : 400,
-                  color: link.active ? "#0F2419" : "#6B7280",
-                  textDecoration: "none",
-                  borderRadius: "8px",
-                  background: link.active ? "rgba(15,36,25,0.05)" : "transparent",
-                }}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const active = isActive(link.href);
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  style={{
+                    display: "block",
+                    padding: "11px 12px",
+                    fontSize: "14px",
+                    fontWeight: active ? 500 : 400,
+                    color: active ? "#0F2419" : "#6B7280",
+                    textDecoration: "none",
+                    borderRadius: "8px",
+                    background: active ? "rgba(15,36,25,0.05)" : "transparent",
+                  }}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
             <a
               href="tel:+994103140808"
               style={{
