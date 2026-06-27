@@ -50,7 +50,6 @@ const ContactPage = () => {
 
   return (
     <div style={{ background: "#FAF7F2", fontFamily: "'Inter', sans-serif" }}>
-<Navbar/>
       {/* Hero */}
       <div style={{ background: "#0F2419", padding: "80px 80px 72px", position: "relative", overflow: "hidden" }} className="con-hero">
         <div style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle at 1px 1px, rgba(245,239,228,0.03) 1px, transparent 0)", backgroundSize: "28px 28px" }} />
@@ -218,7 +217,6 @@ const ContactPage = () => {
           .con-body { padding: 28px 16px 48px !important; }
         }
       `}</style>
-      <Footer/>
     </div>
   );
 };

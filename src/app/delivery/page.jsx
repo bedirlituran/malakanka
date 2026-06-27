@@ -177,7 +177,6 @@ const DeliveryPage = () => {
           .del-banner { padding: 12px 16px !important; }
         }
       `}</style>
-      <Footer/>
     </div>
   );
 };

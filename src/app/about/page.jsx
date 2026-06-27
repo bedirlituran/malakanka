@@ -24,7 +24,6 @@ const values = [
 const AboutPage = () => {
   return (
     <div style={{ background: "#FAF7F2", fontFamily: "'Inter', sans-serif" }}>
-<Navbar/>
       {/* Hero */}
       <div style={{ position: "relative", background: "#0F2419", padding: "96px 80px", overflow: "hidden" }} className="about-hero">
         <div style={{ position: "absolute", inset: 0, backgroundImage: "url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1800&q=60')", backgroundSize: "cover", backgroundPosition: "center", opacity: 0.12 }} />
