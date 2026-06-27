@@ -1,16 +1,46 @@
+"use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const categories = [
-  { name: "Kolbasa və sosiska", img: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=500&q=80" },
-  { name: "Pendir çeşidləri", img: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=500&q=80" },
-  { name: "Süd məhsulları", img: "https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=500&q=80" },
-  { name: "Bal və arıçılıq", img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=500&q=80" },
-  { name: "Turşu çeşidləri", img: "https://images.unsplash.com/photo-1518736114810-3f3bedfec66a?auto=format&fit=crop&w=500&q=80" },
-  { name: "Peçenye və şirniyyat", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=500&q=80" },
-  { name: "Hədiyyə setləri", img: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=500&q=80" },
+  {
+    name: "Kolbasa və sosiska",
+    img: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=500&q=80",
+  },
+  {
+    name: "Pendir çeşidləri",
+    img: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=500&q=80",
+  },
+  {
+    name: "Süd məhsulları",
+    img: "https://plus.unsplash.com/premium_photo-1682129071833-65eed17bcf11?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    name: "Bal və arıçılıq",
+    img: "https://images.unsplash.com/photo-1587049352851-8d4e89133924?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    name: "Turşu çeşidləri",
+    img: "https://images.unsplash.com/photo-1518736114810-3f3bedfec66a?auto=format&fit=crop&w=500&q=80",
+  },
+  {
+    name: "Ət məhsulları",
+    img: "https://images.unsplash.com/photo-1680538491591-7ce20c900f4f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  },
+  {
+    name: "Hədiyyə setləri",
+    img: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?auto=format&fit=crop&w=500&q=80",
+  },
 ];
 
 const Categories = () => {
+  const router = useRouter();
+
+  const handleCategoryClick = (e, catName) => {
+    e.preventDefault();
+    router.push(`/products?cat=${encodeURIComponent(catName)}`);
+  };
+
   return (
     <section className="mk-categories">
       {/* Section header */}
@@ -26,7 +56,12 @@ const Categories = () => {
       {/* Grid */}
       <div className="mk-cat-grid">
         {categories.map((cat, i) => (
-          <a href="#" key={i} className="mk-cat-item">
+          <a
+            href={`/products?cat=${encodeURIComponent(cat.name)}`}
+            key={i}
+            className="mk-cat-item"
+            onClick={(e) => handleCategoryClick(e, cat.name)}
+          >
             <div className="mk-cat-img-wrap">
               <div
                 className="mk-cat-img"

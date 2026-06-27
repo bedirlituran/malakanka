@@ -5,36 +5,31 @@ const products = [
     name: "Malakanka Servelatı",
     weight: "500 q",
     price: "11.50",
-    tag: "Ət məhsulu",
-    img: "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?auto=format&fit=crop&w=700&q=80",
+    img: "/setkali2.png",
   },
   {
     name: "Ev Qurusu Pendiri",
     weight: "1 kq",
     price: "13.00",
-    tag: "Süd məhsulu",
-    img: "https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=700&q=80",
+    img: "/pendir.png",
   },
   {
-    name: "Təbii Çiçək Balı",
+    name: "Yumurta",
     weight: "1 kq",
     price: "18.00",
-    tag: "Arıçılıq",
-    badge: "Bestseller",
-    img: "https://images.unsplash.com/photo-1587049352846-4a222e784d38?auto=format&fit=crop&w=700&q=80",
+    img: "/yumurta.png",
   },
   {
-    name: "Xiyar Turşusu",
+    name: "Hisə verilmiş toyuq filesi",
     weight: "1 l",
     price: "4.00",
-    tag: "Turşu",
-    img: "https://images.unsplash.com/photo-1518736114810-3f3bedfec66a?auto=format&fit=crop&w=700&q=80",
+    img: "/his_file.png",
   },
 ];
 
 const FeaturedProducts = () => {
   return (
-    <section className="mk-fp-section">
+    <section className="mk-fp-section cursor-pointer">
       {/* Header */}
       <div className="mk-fp-header">
         <div className="mk-fp-eyebrow">
@@ -44,7 +39,7 @@ const FeaturedProducts = () => {
         </div>
         <div className="mk-fp-title-row">
           <h2 className="mk-fp-title">Seçilmiş Məhsullar</h2>
-          <a href="#" className="mk-fp-all-link">
+          <a href="/products" className="mk-fp-all-link">
             Bütün məhsullar
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M13 6l6 6-6 6" />
@@ -67,7 +62,6 @@ const FeaturedProducts = () => {
               {product.badge && (
                 <span className="mk-fp-badge">{product.badge}</span>
               )}
-              <span className="mk-fp-tag">{product.tag}</span>
             </div>
 
             {/* Body */}

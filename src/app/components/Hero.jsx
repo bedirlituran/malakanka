@@ -161,7 +161,7 @@ const Hero = () => {
           >
             {/* Primary */}
             <a
-              href="#"
+              href="/products"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -204,7 +204,7 @@ const Hero = () => {
 
             {/* Secondary */}
             <a
-              href="#"
+              href="/about"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
